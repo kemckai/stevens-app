@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Invoices — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<% active = 'invoices' %>
+<%- include('portal-header') %>
+<h1>My Invoices</h1>
+<p class="portal-sub">Payment history and outstanding invoices</p>
+<% if (invoices.length > 0) { %>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Invoice #</th><th>Description</th><th>Amount</th><th>Due Date</th><th>Status</th><th>Paid</th></tr></thead>
+  <tbody>
+  <% invoices.forEach(i => { %>
+  <tr>
+    <td><strong><%= i.invoice_number %></strong></td>
+    <td><%= i.description %></td>
+    <td>$<%= i.amount %></td>
+    <td><%= i.due_date %></td>
+    <td><span class="badge badge-<%= i.status %>"><%= i.status %></span></td>
+    <td><%= i.paid_at ? new Date(i.paid_at).toLocaleDateString() : '—' %></td>
+  </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+<% } else { %>
+<div style="text-align:center;padding:2rem;background:white;border-radius:var(--radius);box-shadow:var(--shadow);">
+  <p style="color:var(--text-light);">No invoices yet.</p>
+</div>
+<% } %>
+<%- include('portal-footer') %>
+</body></html>

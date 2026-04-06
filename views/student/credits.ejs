@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>CE Credits — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<% active = 'credits' %>
+<%- include('portal-header') %>
+<h1>Continuing Education Credits</h1>
+<p class="portal-sub">Track your professional development hours</p>
+
+<div class="ce-total">
+  <div class="number"><%= totalHours %></div>
+  <div class="label">Total CE Hours Earned</div>
+</div>
+
+<% if (credits.length > 0) { %>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Date</th><th>Course</th><th>Hours</th><th>Description</th></tr></thead>
+  <tbody>
+  <% credits.forEach(c => { %>
+  <tr>
+    <td><%= new Date(c.awarded_at).toLocaleDateString() %></td>
+    <td><strong><%= c.course ? c.course.title : 'Unknown' %></strong></td>
+    <td><span class="badge badge-ce"><%= c.hours %> CE</span></td>
+    <td><%= c.description %></td>
+  </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+<% } else { %>
+<div style="text-align:center;padding:2rem;background:white;border-radius:var(--radius);box-shadow:var(--shadow);">
+  <p style="color:var(--text-light);">No CE credits yet. Complete a course to start earning!</p>
+  <a href="/courses" class="btn btn-accent" style="margin-top:1rem;">Browse Courses</a>
+</div>
+<% } %>
+<%- include('portal-footer') %>
+</body></html>

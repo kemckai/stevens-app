@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Courses — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<%- include('partials/nav') %>
+<div class="hero hero-sm"><h1>Courses</h1><p>Evidence-based clinical education for emergency medicine professionals</p></div>
+<section class="section section-white">
+  <div class="container">
+    <div class="card-grid card-grid-3">
+      <% courses.forEach(c => { %>
+      <a href="/courses/<%= c.id %>" class="card" style="text-decoration:none;color:inherit;">
+        <div class="course-header <%= catClass(c.category) %>">
+          <span><%= c.category %></span>
+          <span class="course-price">$<%= c.price %></span>
+        </div>
+        <div class="card-body">
+          <h3><%= c.title %></h3>
+          <p><%= c.description.substring(0, 150) %><%= c.description.length > 150 ? '...' : '' %></p>
+          <div class="course-meta">
+            <span>🕐 <%= c.duration_hours %> hours</span>
+            <span>📋 <%= c.format %></span>
+            <span>👥 Max <%= c.max_students %></span>
+            <% if (c.ce_credits) { %><span class="badge badge-ce"><%= c.ce_credits %> CE</span><% } %>
+          </div>
+        </div>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<%- include('partials/footer') %>
+</body></html>

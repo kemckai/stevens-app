@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>CE Credits Admin — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<% active = 'credits' %>
+<%- include('admin-header') %>
+<h1>CE Credits Management</h1>
+<p class="portal-sub">Award and track continuing education credits</p>
+<div style="display:grid;grid-template-columns:1fr 2fr;gap:2rem;">
+  <div>
+    <h2 style="margin-bottom:1rem;">Award CE Credits</h2>
+    <div style="background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.5rem;">
+      <form method="POST" action="/admin/credits">
+        <div class="form-group"><label>Student ID</label><input type="number" name="user_id" class="form-input" required placeholder="User ID"></div>
+        <div class="form-group"><label>Course ID</label><input type="number" name="course_id" class="form-input" required placeholder="Course ID"></div>
+        <div class="form-group"><label>Session ID</label><input type="number" name="session_id" class="form-input" placeholder="Optional"></div>
+        <div class="form-group"><label>CE Hours</label><input type="number" name="hours" class="form-input" step="0.5" required></div>
+        <div class="form-group"><label>Description</label><input type="text" name="description" class="form-input" required placeholder="e.g. Advanced Trauma Assessment — completed"></div>
+        <button type="submit" class="btn btn-blue">Award Credits</button>
+      </form>
+    </div>
+  </div>
+  <div>
+    <h2 style="margin-bottom:1rem;">Credit History</h2>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>Student</th><th>Course</th><th>Hours</th><th>Description</th></tr></thead>
+      <tbody>
+      <% credits.forEach(c => { %>
+      <tr>
+        <td><%= new Date(c.awarded_at).toLocaleDateString() %></td>
+        <td><strong><%= c.user ? c.user.full_name : 'ID: ' + c.user_id %></strong></td>
+        <td><%= c.course ? c.course.title : 'ID: ' + c.course_id %></td>
+        <td><span class="badge badge-ce"><%= c.hours %> CE</span></td>
+        <td><%= c.description %></td>
+      </tr>
+      <% }) %>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+<%- include('admin-footer') %>
+</body></html>

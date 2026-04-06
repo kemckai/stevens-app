@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Courses Admin — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<% active = 'courses' %>
+<%- include('admin-header') %>
+<h1>Manage Courses</h1>
+<p class="portal-sub"><%= courses.length %> courses</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+  <div>
+    <h2 style="margin-bottom:1rem;">Add New Course</h2>
+    <div style="background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.5rem;">
+      <form method="POST" action="/admin/courses">
+        <div class="form-group"><label>Title</label><input type="text" name="title" class="form-input" required></div>
+        <div class="form-group"><label>Description</label><textarea name="description" class="form-input" required></textarea></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
+          <div class="form-group"><label>Category</label><select name="category" class="form-input"><option>Trauma</option><option>Pediatric</option><option>Cardiac</option><option>Leadership</option><option>Consulting</option><option>Other</option></select></div>
+          <div class="form-group"><label>Format</label><select name="format" class="form-input"><option value="in-person">In-Person</option><option value="virtual">Virtual</option></select></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.8rem;">
+          <div class="form-group"><label>Hours</label><input type="number" name="duration_hours" class="form-input" step="0.5" required></div>
+          <div class="form-group"><label>Price ($)</label><input type="number" name="price" class="form-input" step="1" required></div>
+          <div class="form-group"><label>CE Credits</label><input type="number" name="ce_credits" class="form-input" step="0.5" value="0"></div>
+          <div class="form-group"><label>Max Students</label><input type="number" name="max_students" class="form-input" value="30"></div>
+        </div>
+        <button type="submit" class="btn btn-blue">Add Course</button>
+      </form>
+    </div>
+  </div>
+  <div>
+    <h2 style="margin-bottom:1rem;">Current Courses</h2>
+    <% courses.forEach(c => { %>
+    <div style="background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;margin-bottom:.8rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <strong><%= c.title %></strong>
+          <span class="badge badge-<%= c.format === 'virtual' ? 'virtual' : 'in-person' %>" style="margin-left:.5rem;"><%= c.format %></span>
+        </div>
+        <strong>$<%= c.price %></strong>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-light);margin-top:.3rem;"><%= c.category %> · <%= c.duration_hours %>h · <%= c.ce_credits %> CE · Max <%= c.max_students %></p>
+    </div>
+    <% }) %>
+  </div>
+</div>
+<%- include('admin-footer') %>
+</body></html>

@@ -1,0 +1,25 @@
+<nav class="nav">
+  <a href="/" class="nav-brand">Steven Jewell<span>Emergency Medicine Education</span></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/courses">Courses</a>
+    <a href="/schedule">Schedule</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <% if (user) { %>
+      <% if (user.role === 'admin') { %>
+        <a href="/admin" class="nav-btn">Admin</a>
+      <% } else { %>
+        <a href="/portal" class="nav-btn">My Portal</a>
+      <% } %>
+      <a href="/logout" style="font-size:.75rem;opacity:.7;">Logout</a>
+    <% } else { %>
+      <a href="/login" class="nav-btn">Login</a>
+    <% } %>
+  </div>
+</nav>
+<% if (flash) { %>
+<div style="max-width:1200px;margin:.8rem auto;padding:0 2rem;">
+  <div class="flash flash-error"><%= flash %></div>
+</div>
+<% } %>

@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Admin — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<% active = 'dashboard' %>
+<%- include('admin-header') %>
+<h1>Admin Dashboard</h1>
+<p class="portal-sub">Business overview</p>
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-number"><%= stats.students %></div><div class="stat-label">Students</div></div>
+  <div class="stat-card"><div class="stat-number"><%= stats.courses %></div><div class="stat-label">Courses</div></div>
+  <div class="stat-card"><div class="stat-number"><%= stats.sessions %></div><div class="stat-label">Sessions</div></div>
+  <div class="stat-card"><div class="stat-number"><%= stats.bookings %></div><div class="stat-label">Bookings</div></div>
+  <div class="stat-card"><div class="stat-number">$<%= stats.revenue.toLocaleString() %></div><div class="stat-label">Revenue (Paid)</div></div>
+</div>
+<div class="card-grid card-grid-3" style="margin-top:1.5rem;">
+  <a href="/admin/courses" class="card" style="padding:1.5rem;text-decoration:none;text-align:center;"><span style="font-size:2rem;">📚</span><h3 style="margin-top:.5rem;">Manage Courses</h3></a>
+  <a href="/admin/sessions" class="card" style="padding:1.5rem;text-decoration:none;text-align:center;"><span style="font-size:2rem;">📅</span><h3 style="margin-top:.5rem;">Manage Sessions</h3></a>
+  <a href="/admin/invoices" class="card" style="padding:1.5rem;text-decoration:none;text-align:center;"><span style="font-size:2rem;">💰</span><h3 style="margin-top:.5rem;">Manage Invoices</h3></a>
+  <a href="/admin/bookings" class="card" style="padding:1.5rem;text-decoration:none;text-align:center;"><span style="font-size:2rem;">📋</span><h3 style="margin-top:.5rem;">View Bookings</h3></a>
+  <a href="/admin/students" class="card" style="padding:1.5rem;text-decoration:none;text-align:center;"><span style="font-size:2rem;">👥</span><h3 style="margin-top:.5rem;">Students</h3></a>
+  <a href="/admin/credits" class="card" style="padding:1.5rem;text-decoration:none;text-align:center;"><span style="font-size:2rem;">📜</span><h3 style="margin-top:.5rem;">Award CE Credits</h3></a>
+</div>
+<%- include('admin-footer') %>
+</body></html>

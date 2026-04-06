@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Invoices Admin — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<% active = 'invoices' %>
+<%- include('admin-header') %>
+<h1>Manage Invoices</h1>
+<p class="portal-sub"><%= invoices.length %> invoices</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Invoice #</th><th>Student</th><th>Description</th><th>Amount</th><th>Due</th><th>Status</th><th>Action</th></tr></thead>
+  <tbody>
+  <% invoices.forEach(i => { %>
+  <tr>
+    <td><strong><%= i.invoice_number %></strong></td>
+    <td><%= i.user ? i.user.full_name : 'Unknown' %></td>
+    <td><%= i.description %></td>
+    <td>$<%= i.amount %></td>
+    <td><%= i.due_date %></td>
+    <td><span class="badge badge-<%= i.status %>"><%= i.status %></span></td>
+    <td>
+      <form method="POST" action="/admin/invoices/<%= i.id %>/status" style="display:inline;">
+        <select name="status" class="form-input" style="width:auto;padding:.2rem .4rem;font-size:.75rem;" onchange="this.form.submit()">
+          <option value="unpaid" <%= i.status === 'unpaid' ? 'selected' : '' %>>Unpaid</option>
+          <option value="paid" <%= i.status === 'paid' ? 'selected' : '' %>>Paid</option>
+          <option value="overdue" <%= i.status === 'overdue' ? 'selected' : '' %>>Overdue</option>
+        </select>
+      </form>
+    </td>
+  </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+<%- include('admin-footer') %>
+</body></html>

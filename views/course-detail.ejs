@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title><%= course.title %> — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<%- include('partials/nav') %>
+<div class="hero hero-sm" style="text-align:left;max-width:1200px;margin:0 auto;">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+    <div>
+      <span class="badge badge-<%= course.format === 'virtual' ? 'virtual' : 'in-person' %>" style="margin-bottom:.5rem;display:inline-block;"><%= course.format %></span>
+      <h1 style="font-size:2.2rem;"><%= course.title %></h1>
+      <p style="opacity:.8;margin-top:.5rem;"><%= course.category %> · <%= course.duration_hours %> hours <% if (course.ce_credits) { %>· <%= course.ce_credits %> CE Credits<% } %></p>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:2.5rem;font-weight:700;">$<%= course.price %></div>
+      <div style="font-size:.85rem;opacity:.7;">per participant</div>
+    </div>
+  </div>
+</div>
+
+<section class="section section-white">
+  <div class="container" style="max-width:900px;">
+    <h2 style="margin-bottom:1rem;">Course Description</h2>
+    <p style="line-height:1.8;color:var(--text);font-size:1.05rem;margin-bottom:2rem;"><%= course.description %></p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem;">
+      <div class="stat-card"><div class="stat-number">🕐</div><div class="stat-label"><%= course.duration_hours %> Hours</div></div>
+      <div class="stat-card"><div class="stat-number">📋</div><div class="stat-label"><%= course.format %></div></div>
+      <div class="stat-card"><div class="stat-number">👥</div><div class="stat-label">Max <%= course.max_students %> Students</div></div>
+      <% if (course.ce_credits) { %><div class="stat-card"><div class="stat-number">📜</div><div class="stat-label"><%= course.ce_credits %> CE Credits</div></div><% } %>
+    </div>
+
+    <% if (sessions.length > 0) { %>
+    <h2 style="margin-bottom:1rem;">Upcoming Sessions</h2>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>Time</th><th>Location</th><th>Spots Left</th><th></th></tr></thead>
+      <tbody>
+      <% sessions.forEach(s => { %>
+      <tr>
+        <td><strong><%= s.date %></strong></td>
+        <td><%= s.time %></td>
+        <td><%= s.location %> <span class="badge badge-<%= s.location_type %>"><%= s.location_type %></span></td>
+        <td><%= s.spots_total - s.spots_taken %> remaining</td>
+        <td><a href="/portal/book/<%= s.id %>" class="btn btn-accent btn-sm">Register Now</a></td>
+      </tr>
+      <% if (s.notes) { %><tr><td colspan="5" style="font-size:.85rem;color:var(--text-light);background:#f8fafc;">📝 <%= s.notes %></td></tr><% } %>
+      <% }) %>
+      </tbody>
+    </table>
+    </div>
+    <% } else { %>
+    <div style="background:var(--warm);border-radius:var(--radius);padding:2rem;text-align:center;">
+      <p style="color:var(--text-light);">No upcoming sessions scheduled for this course. <a href="/contact">Contact us</a> for group bookings or to request a session.</p>
+    </div>
+    <% } %>
+  </div>
+</section>
+<%- include('partials/footer') %>
+</body></html>

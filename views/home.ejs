@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Steven Jewell — Emergency Medicine Education</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<%- include('partials/nav') %>
+
+<div class="hero">
+  <h1>Elevate Your Emergency Practice</h1>
+  <p>Expert-led clinical education for nurses and physicians. From trauma assessment to ECG mastery — built by a Level I trauma center charge nurse who lives this work every shift.</p>
+  <a href="/courses" class="btn btn-accent">Browse Courses</a>
+  <a href="/schedule" class="btn btn-outline" style="margin-left:.5rem;border-color:white;color:white;">View Schedule</a>
+</div>
+
+<section class="section section-white">
+  <div class="container">
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-number">250+</div><div class="stat-label">Teaching Hours / Year</div></div>
+      <div class="stat-card"><div class="stat-number">Level I</div><div class="stat-label">Trauma Center</div></div>
+      <div class="stat-card"><div class="stat-number">Global</div><div class="stat-label">Reach</div></div>
+      <div class="stat-card"><div class="stat-number">CE</div><div class="stat-label">Credits Available</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-warm">
+  <div class="container">
+    <h2 class="section-title">Featured Courses</h2>
+    <p class="section-sub">Hands-on, evidence-based education that translates directly to the bedside</p>
+    <div class="card-grid card-grid-3">
+      <% courses.slice(0, 6).forEach(c => { %>
+      <a href="/courses/<%= c.id %>" class="card" style="text-decoration:none;color:inherit;">
+        <div class="course-header <%= catClass(c.category) %>">
+          <span><%= c.category %></span>
+          <span class="course-price">$<%= c.price %></span>
+        </div>
+        <div class="card-body">
+          <h3><%= c.title %></h3>
+          <p><%= c.description.substring(0, 120) %><%= c.description.length > 120 ? '...' : '' %></p>
+          <div class="course-meta">
+            <span>🕐 <%= c.duration_hours %>h</span>
+            <span>📋 <%= c.format %></span>
+            <% if (c.ce_credits) { %><span class="badge badge-ce"><%= c.ce_credits %> CE Credits</span><% } %>
+          </div>
+        </div>
+      </a>
+      <% }) %>
+    </div>
+    <div style="text-align:center;margin-top:2rem;"><a href="/courses" class="btn btn-blue">View All Courses</a></div>
+  </div>
+</section>
+
+<section class="section section-white">
+  <div class="container">
+    <h2 class="section-title">Upcoming Sessions</h2>
+    <p class="section-sub">Reserve your spot — class sizes are limited</p>
+    <% if (sessions.length > 0) { %>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>Course</th><th>Time</th><th>Location</th><th>Spots</th><th></th></tr></thead>
+      <tbody>
+      <% const allCourses = courses; sessions.slice(0, 5).forEach(s => { const c = allCourses.find(co => co.id === s.course_id); %>
+      <tr>
+        <td><strong><%= s.date %></strong></td>
+        <td><%= c ? c.title : 'TBD' %></td>
+        <td><%= s.time %></td>
+        <td><%= s.location %> <span class="badge badge-<%= s.location_type %>"><%= s.location_type %></span></td>
+        <td><%= s.spots_total - s.spots_taken %> / <%= s.spots_total %></td>
+        <td><a href="/portal/book/<%= s.id %>" class="btn btn-accent btn-sm">Register</a></td>
+      </tr>
+      <% }) %>
+      </tbody>
+    </table>
+    </div>
+    <% } else { %>
+    <p style="text-align:center;color:var(--text-light);">No upcoming sessions. Check back soon!</p>
+    <% } %>
+  </div>
+</section>
+
+<section class="section" style="background:linear-gradient(135deg,#063a6a,#0a4d8c,#00b4d8);color:white;text-align:center;">
+  <div class="container">
+    <h2 style="color:white;margin-bottom:.8rem;">Ready to Level Up Your Clinical Skills?</h2>
+    <p style="opacity:.85;max-width:550px;margin:0 auto 1.5rem;">Join hundreds of nurses and physicians who trust Steven Jewell for their emergency medicine education.</p>
+    <a href="/register" class="btn btn-accent">Create Account</a>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+</body></html>

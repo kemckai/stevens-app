@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Register for Course — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<%- include('../partials/nav') %>
+<div class="hero hero-sm"><h1>Register for Course</h1></div>
+<section class="section section-white">
+  <div class="container" style="max-width:600px;">
+    <% if (success) { %>
+    <div class="flash flash-success"><strong>Registration confirmed!</strong> You are now registered for <strong><%= course.title %></strong> on <%= session.date %>. Check your invoices for payment details.</div>
+    <div style="text-align:center;margin-top:1rem;"><a href="/portal" class="btn btn-blue">Go to Dashboard</a></div>
+    <% } else { %>
+    <div class="form-card" style="max-width:none;">
+      <h2 style="margin-bottom:1rem;"><%= course.title %></h2>
+      <div style="background:var(--warm);border-radius:8px;padding:1rem;margin-bottom:1.5rem;">
+        <p><strong>Date:</strong> <%= session.date %> at <%= session.time %></p>
+        <p><strong>Location:</strong> <%= session.location %> <span class="badge badge-<%= session.location_type %>"><%= session.location_type %></span></p>
+        <p><strong>Duration:</strong> <%= course.duration_hours %> hours</p>
+        <% if (course.ce_credits) { %><p><strong>CE Credits:</strong> <%= course.ce_credits %> hours</p><% } %>
+        <p><strong>Spots remaining:</strong> <%= session.spots_total - session.spots_taken %></p>
+        <p style="margin-top:.5rem;font-size:1.3rem;font-weight:700;color:var(--blue);">$<%= course.price %></p>
+      </div>
+      <% if (session.notes) { %><p style="font-size:.85rem;color:var(--text-light);margin-bottom:1rem;">📝 <%= session.notes %></p><% } %>
+      <form method="POST" action="/portal/book/<%= session.id %>">
+        <button type="submit" class="btn btn-accent" style="width:100%;">Confirm Registration & Pay $<%= course.price %></button>
+      </form>
+      <p style="text-align:center;margin-top:1rem;font-size:.8rem;color:var(--text-light);">Payment is processed securely. An invoice will be generated automatically.</p>
+    </div>
+    <% } %>
+  </div>
+</section>
+<%- include('../partials/footer') %>
+</body></html>

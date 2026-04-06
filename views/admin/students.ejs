@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Students Admin — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<% active = 'students' %>
+<%- include('admin-header') %>
+<h1>Registered Students</h1>
+<p class="portal-sub"><%= students.length %> students</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Credentials</th><th>Registered</th></tr></thead>
+  <tbody>
+  <% students.forEach(s => { %>
+  <tr>
+    <td><strong><%= s.full_name %></strong></td>
+    <td><%= s.email %></td>
+    <td><%= s.phone || '—' %></td>
+    <td><%= s.credentials || '—' %></td>
+    <td><%= new Date(s.created_at).toLocaleDateString() %></td>
+  </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+<%- include('admin-footer') %>
+</body></html>

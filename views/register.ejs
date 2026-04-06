@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Register — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<%- include('partials/nav') %>
+<div class="hero hero-sm"><h1>Create Account</h1><p>Register to book courses and track your CE credits</p></div>
+<section class="section section-white">
+  <div class="container">
+    <div class="form-card">
+      <form method="POST" action="/register">
+        <div class="form-group"><label>Full Name *</label><input type="text" name="full_name" class="form-input" required placeholder="e.g. Sarah Chen, RN"></div>
+        <div class="form-group"><label>Email *</label><input type="email" name="email" class="form-input" required></div>
+        <div class="form-group"><label>Phone</label><input type="tel" name="phone" class="form-input"></div>
+        <div class="form-group"><label>Credentials</label><input type="text" name="credentials" class="form-input" placeholder="e.g. BSN, RN, CEN"></div>
+        <div class="form-group"><label>Password *</label><input type="password" name="password" class="form-input" required minlength="6"></div>
+        <div class="form-group"><label>Confirm Password *</label><input type="password" name="password2" class="form-input" required></div>
+        <button type="submit" class="btn btn-blue" style="width:100%;">Create Account</button>
+      </form>
+      <p style="text-align:center;margin-top:1.2rem;color:var(--text-light);font-size:.9rem;">Already registered? <a href="/login" style="color:var(--accent);font-weight:600;">Sign in</a></p>
+    </div>
+  </div>
+</section>
+<%- include('partials/footer') %>
+</body></html>

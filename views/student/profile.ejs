@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Profile — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<% active = 'profile' %>
+<%- include('portal-header') %>
+<h1>My Profile</h1>
+<p class="portal-sub">Update your information</p>
+<% if (success) { %><div class="flash flash-success">Profile updated successfully.</div><% } %>
+<div style="background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:2rem;max-width:500px;">
+  <form method="POST" action="/portal/profile">
+    <div class="form-group"><label>Full Name</label><input type="text" name="full_name" class="form-input" value="<%= profile.full_name %>"></div>
+    <div class="form-group"><label>Email</label><input type="email" name="email" class="form-input" value="<%= profile.email %>"></div>
+    <div class="form-group"><label>Phone</label><input type="tel" name="phone" class="form-input" value="<%= profile.phone %>"></div>
+    <div class="form-group"><label>Credentials</label><input type="text" name="credentials" class="form-input" value="<%= profile.credentials %>" placeholder="e.g. BSN, RN, CEN"></div>
+    <hr style="margin:1.2rem 0;border:none;border-top:1px solid #e2e8f0;">
+    <p style="font-size:.8rem;color:var(--text-light);margin-bottom:.8rem;">Leave blank to keep current password</p>
+    <div class="form-group"><label>New Password</label><input type="password" name="password" class="form-input"></div>
+    <div class="form-group"><label>Confirm Password</label><input type="password" name="password2" class="form-input"></div>
+    <button type="submit" class="btn btn-blue">Save Changes</button>
+  </form>
+</div>
+<%- include('portal-footer') %>
+</body></html>

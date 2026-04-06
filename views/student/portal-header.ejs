@@ -1,0 +1,16 @@
+<%- include('../partials/nav') %>
+<div class="portal-layout">
+  <div class="sidebar">
+    <div class="sidebar-title">Portal</div>
+    <a href="/portal" class="<%= typeof active !== 'undefined' && active === 'dashboard' ? 'active' : '' %>">📊 Dashboard</a>
+    <a href="/portal/bookings" class="<%= typeof active !== 'undefined' && active === 'bookings' ? 'active' : '' %>">📋 My Bookings</a>
+    <a href="/portal/invoices" class="<%= typeof active !== 'undefined' && active === 'invoices' ? 'active' : '' %>">💰 Invoices</a>
+    <a href="/portal/credits" class="<%= typeof active !== 'undefined' && active === 'credits' ? 'active' : '' %>">📜 CE Credits</a>
+    <a href="/portal/profile" class="<%= typeof active !== 'undefined' && active === 'profile' ? 'active' : '' %>">👤 Profile</a>
+    <div class="sidebar-title" style="margin-top:1.5rem;">Browse</div>
+    <a href="/courses">📚 Courses</a>
+    <a href="/schedule">📅 Schedule</a>
+    <a href="/">🏠 Home</a>
+    <a href="/logout">🚪 Logout</a>
+  </div>
+  <div class="portal-content">

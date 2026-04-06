@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Bookings Admin — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<% active = 'bookings' %>
+<%- include('admin-header') %>
+<h1>All Bookings</h1>
+<p class="portal-sub"><%= bookings.length %> total bookings</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Date Booked</th><th>Student</th><th>Course</th><th>Session Date</th><th>Amount</th><th>Payment</th></tr></thead>
+  <tbody>
+  <% bookings.forEach(b => { %>
+  <tr>
+    <td><%= new Date(b.booked_at).toLocaleDateString() %></td>
+    <td><strong><%= b.user ? b.user.full_name : 'Unknown' %></strong></td>
+    <td><%= b.course ? b.course.title : 'Unknown' %></td>
+    <td><%= b.session ? b.session.date : '—' %></td>
+    <td>$<%= b.amount_paid %></td>
+    <td><span class="badge badge-<%= b.payment_status %>"><%= b.payment_status %></span></td>
+  </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+<%- include('admin-footer') %>
+</body></html>

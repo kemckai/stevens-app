@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Sessions Admin — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<% active = 'sessions' %>
+<%- include('admin-header') %>
+<h1>Manage Sessions</h1>
+<p class="portal-sub"><%= sessions.length %> scheduled sessions</p>
+<div style="display:grid;grid-template-columns:1fr 2fr;gap:2rem;">
+  <div>
+    <h2 style="margin-bottom:1rem;">Schedule New Session</h2>
+    <div style="background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.5rem;">
+      <form method="POST" action="/admin/sessions">
+        <div class="form-group"><label>Course</label><select name="course_id" class="form-input" required><% courses.forEach(c => { %><option value="<%= c.id %>"><%= c.title %></option><% }) %></select></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
+          <div class="form-group"><label>Date</label><input type="date" name="date" class="form-input" required></div>
+          <div class="form-group"><label>Time</label><input type="time" name="time" class="form-input" required></div>
+        </div>
+        <div class="form-group"><label>Location</label><input type="text" name="location" class="form-input" required placeholder="e.g. University Hospital — San Antonio, TX"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
+          <div class="form-group"><label>Format</label><select name="location_type" class="form-input"><option value="in-person">In-Person</option><option value="virtual">Virtual</option></select></div>
+          <div class="form-group"><label>Spots</label><input type="number" name="spots" class="form-input" value="25" required></div>
+        </div>
+        <div class="form-group"><label>Notes</label><input type="text" name="notes" class="form-input" placeholder="Optional notes..."></div>
+        <button type="submit" class="btn btn-blue">Schedule Session</button>
+      </form>
+    </div>
+  </div>
+  <div>
+    <h2 style="margin-bottom:1rem;">All Sessions</h2>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>Course</th><th>Time</th><th>Location</th><th>Spots</th><th>Status</th></tr></thead>
+      <tbody>
+      <% sessions.forEach(s => { %>
+      <tr>
+        <td><strong><%= s.date %></strong></td>
+        <td><%= s.course ? s.course.title : 'Unknown' %></td>
+        <td><%= s.time %></td>
+        <td><%= s.location %> <span class="badge badge-<%= s.location_type %>"><%= s.location_type %></span></td>
+        <td><%= s.spots_taken %> / <%= s.spots_total %></td>
+        <td><span class="badge badge-<%= s.status %>"><%= s.status %></span></td>
+      </tr>
+      <% }) %>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+<%- include('admin-footer') %>
+</body></html>

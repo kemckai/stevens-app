@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Dashboard — Steven Jewell</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<% active = 'dashboard' %>
+<%- include('portal-header') %>
+<h1>Welcome back, <%= user.full_name.split(' ')[0] %> 🏥</h1>
+<p class="portal-sub">Your education overview</p>
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-number"><%= bookings.length %></div><div class="stat-label">Active Bookings</div></div>
+  <div class="stat-card"><div class="stat-number"><%= bookings.filter(b => b.payment_status === 'paid').length %></div><div class="stat-label">Confirmed</div></div>
+  <div class="stat-card"><div class="stat-number"><%= totalCredits %></div><div class="stat-label">CE Hours Earned</div></div>
+</div>
+<% if (bookings.length > 0) { %>
+<h2 style="margin-bottom:1rem;">Upcoming Courses</h2>
+<div class="card-grid">
+  <% bookings.forEach(b => { if (b.session && b.course) { %>
+  <div class="card" style="padding:1.5rem;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;">
+      <h3 style="font-size:1rem;"><%= b.course.title %></h3>
+      <span class="badge badge-<%= b.payment_status %>"><%= b.payment_status %></span>
+    </div>
+    <p style="font-size:.85rem;color:var(--text-light);">📅 <%= b.session.date %> at <%= b.session.time %></p>
+    <p style="font-size:.85rem;color:var(--text-light);">📍 <%= b.session.location %></p>
+    <% if (b.course.ce_credits) { %><p style="font-size:.85rem;margin-top:.3rem;"><span class="badge badge-ce"><%= b.course.ce_credits %> CE Credits</span></p><% } %>
+  </div>
+  <% } }) %>
+</div>
+<% } else { %>
+<div style="text-align:center;padding:3rem;background:white;border-radius:var(--radius);box-shadow:var(--shadow);">
+  <p style="color:var(--text-light);margin-bottom:1rem;">No bookings yet — time to invest in your clinical skills!</p>
+  <a href="/courses" class="btn btn-accent">Browse Courses</a>
+</div>
+<% } %>
+<%- include('portal-footer') %>
+</body></html>
