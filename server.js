@@ -5,7 +5,8 @@ const crypto = require('crypto');
 const DB = require('./db');
 
 const app = express();
-const PORT = 4001;
+const PORT = process.env.PORT || 4001;
+if (process.env.TRUST_PROXY) app.set('trust proxy', 1);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
